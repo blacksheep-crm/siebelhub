@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<REPOSITORY
+   NAME="Siebel Repository"
+   UPDATED="08/29/2017 12:58:18"
+   UPDATED_BY="SADMIN"
+   CREATED="08/29/2017 12:28:17"
+   CREATED_BY="SADMIN"
+   FIO_PLACEHOLDER_FIO="TRUE">
+	<PROJECT
+	   ALLOW_OBJECT_LOCKING="Y"
+	   INACTIVE="N"
+	   LOCKED="N"
+	   NAME="PF Control Workflows"
+	   UI_FREEZE="N"
+	   UPDATED="04/07/2022 13:16:38"
+	   UPDATED_BY="SADMIN"
+	   CREATED="04/07/2022 13:16:38"
+	   CREATED_BY="SADMIN"
+	   FIO_PLACEHOLDER_FIO="TRUE">
+		<BUSINESS_SERVICE
+		   CACHE="N"
+		   CLASS="CSSService"
+		   COMMENTS="pf jca 7.11.19: set to Stateless; pf jca 18.7.2019: set Property.Cache to N due &quot;SBL-DAT-00323: The method is not supported on Business Service&quot; (Doc ID: 2502923.1, 2548329.1); pf jca 13.07.2018: added Property.Cache = Y;"
+		   EXTERNAL_USE="N"
+		   HIDDEN="N"
+		   INACTIVE="N"
+		   NAME="PF Run External Application"
+		   SERVER_ENABLED="Y"
+		   STATE_MANAGEMENT_TYPE="Stateless"
+		   WEB_SERVICE_ENABLED="N"
+		   UPDATED="04/07/2022 13:16:38"
+		   UPDATED_BY="SADMIN"
+		   CREATED="04/07/2022 13:16:38"
+		   CREATED_BY="SADMIN">
+			<BUSINESS_SERVICE_METHOD
+			   COMMENTS="pf jca 11.01.2021: added. Used in JS.custompl.js"
+			   HIDDEN="N"
+			   INACTIVE="N"
+			   NAME="CheckUserSessions"
+			   UPDATED="04/07/2022 13:16:38"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:16:38"
+			   CREATED_BY="SADMIN">
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="stopTask"
+				   OPTIONAL="Y"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+			</BUSINESS_SERVICE_METHOD>
+			<BUSINESS_SERVICE_METHOD
+			   COMMENTS="executes an external application spawning a new process"
+			   HIDDEN="N"
+			   INACTIVE="N"
+			   NAME="Run"
+			   UPDATED="04/07/2022 13:16:38"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:16:38"
+			   CREATED_BY="SADMIN">
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Arglist"
+				   OPTIONAL="Y"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Error Code"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Output"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Error Message"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Output"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Program"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+			</BUSINESS_SERVICE_METHOD>
+			<BUSINESS_SERVICE_METHOD
+			   HIDDEN="N"
+			   INACTIVE="N"
+			   NAME="RunProcess"
+			   UPDATED="04/07/2022 13:16:38"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:16:38"
+			   CREATED_BY="SADMIN">
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Arguments"
+				   OPTIONAL="Y"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Error Code"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Output"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Error Message"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Output"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="ExitCode"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Output"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="String"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Program"
+				   OPTIONAL="N"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+				<BUSINESS_SERVICE_METHOD_ARG
+				   DATA_TYPE="Number"
+				   HIDDEN="N"
+				   INACTIVE="N"
+				   NAME="Timeout"
+				   OPTIONAL="Y"
+				   STORAGE_TYPE="Property"
+				   TYPE="Input"
+				   UPDATED="04/07/2022 13:16:38"
+				   UPDATED_BY="SADMIN"
+				   CREATED="04/07/2022 13:16:38"
+				   CREATED_BY="SADMIN">
+				</BUSINESS_SERVICE_METHOD_ARG>
+			</BUSINESS_SERVICE_METHOD>
+			<BUSINESS_SERVICE_SERVER_SCRIPT
+			   INACTIVE="N"
+			   NAME="CheckUserSessions"
+			   PROGRAM_LANGUAGE="JS"
+			   SCRIPT="function CheckUserSessions(Inputs, Outputs) {
+	//run Business Service in Asynchron Modus: https://www.siebelhub.com/main/2014/07/asynchronous-business-service-invocation-in-siebel-open-ui.html
+	//How To Use Siebel Script To Submit An Asynchronous Request To Workflow Process Manager (Doc ID 2109712.2)
+	var boServerAdminSessions: BusObject = null;
+	var bcVBCSession: BusComp = null;
+
+	var boServerAdmin: BusObject = null;
+	var bcServerTask: BusComp = null;
+
+	var oBS = null;
+	var psIn = null;
+	var psOut = null;
+
+	var nTasks = 0;
+	var sTaskID = &quot;&quot;;
+	var sTime = &quot;&quot;;
+	var sSrvr = &quot;&quot;;
+	var sGtwy = &quot;&quot;;
+	var sEnt = &quot;&quot;;
+	var sCmd = &quot;&quot;;
+	var sTaskIdStop = 0;
+	var stopTask = &quot;&quot;;
+
+	var attrTskCheck = &quot;False&quot;;
+	var attrTskMax = 2;
+	var attrTskWait = 30;
+
+	TheApplication().TraceOn(&quot;..\\log\\CheckUserSessions_$p_$t.log&quot;, &quot;Allocation&quot;, &quot;All&quot;);
+	TheApplication().Trace(&quot;QUERYING OPENEND SESSIONS &apos;New Document Limit The Number Of Siebel User Sessions (Doc ID 2740269.1)&apos; FOR : &quot; + TheApplication().LoginName());
+
+	try {
+		//Start -&gt; Get Profile attributes
+		attrTskCheck = TheApplication().GetProfileAttr(&quot;PFChckUsrMxTskCheck&quot;);
+		//if (attrTskCheck != &quot;True&quot; || attrTskCheck != &quot;False&quot;)
+		//attrTskCheck = &quot;True&quot;;
+
+		attrTskMax = TheApplication().GetProfileAttr(&quot;PFChckUsrMxTskMax&quot;);
+		//if (attrTskMax != &quot;2&quot; || attrTskMax != &quot;3&quot;)
+		//attrTskMax = 2;
+
+		attrTskWait = TheApplication().GetProfileAttr(&quot;PFChckUsrMxTskWait&quot;);
+		//if (attrTskWait != &quot;5000&quot; || attrTskWait != &quot;30000&quot; || attrTskWait != &quot;60000&quot;)
+		//attrTskWait = 30000;
+
+		Outputs.SetProperty(&quot;sParams&quot;, &quot;TaskCheck=&quot; + attrTskCheck + &quot;, TaskMax=&quot; + attrTskMax + &quot;, TaskWait=&quot; + attrTskWait);
+		//&lt;- End
+		stopTask = Inputs.GetProperty(&quot;stopTask&quot;);
+		boServerAdminSessions = TheApplication().GetBusObject(&quot;Server Admin Runtime&quot;);
+		bcVBCSession = boServerAdminSessions.GetBusComp(&quot;Enterprise Task Persistence&quot;);
+		with (bcVBCSession) {
+			//InvokeMethod(&quot;SetAdminMode&quot;, &quot;TRUE&quot;);
+			//SetViewMode(3);
+			ActivateField(&quot;Component Name&quot;);
+			ActivateField(&quot;User Login&quot;);
+			ActivateField(&quot;Task Id&quot;);
+			ActivateField(&quot;Task Status&quot;);
+			ActivateField(&quot;Delete Time&quot;);
+			ActivateField(&quot;Task Start Time&quot;);
+			ActivateField(&quot;Server Name&quot;);
+			ActivateField(&quot;Enterprise Name&quot;);
+			SetSearchExpr(&quot;[Component Name] LIKE &apos;SSEObjMgr_*&apos; AND [Delete Time] IS NULL  AND [Task Status] IS NULL AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
+			SetSortSpec(&quot;Task Start Time(ASCENDING)&quot;);
+			ExecuteQuery(ForwardBackward);
+
+			TheApplication().Trace(&quot;SEARCH EXPR: &quot; + &quot;[Component Name] LIKE &apos;SSEObjMgr_*&apos; AND [Task Status] = &apos;Running&apos; AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
+
+			if (FirstRecord()) {
+				TheApplication().Trace(&quot;Records found.&quot;);
+				do {
+					nTasks = nTasks + 1;
+					//with var sTaskIdStop = 99999999999;
+					//if(GetFieldValue(&quot;Task Id&quot;) &lt; sTaskIdStop) {
+					//  sTaskIdStop = GetFieldValue(&quot;Task Id&quot;);
+					//}
+					//with var sTaskIdStop = 0;
+					if (sTaskIdStop == 0) {
+						sTaskIdStop = GetFieldValue(&quot;Task Id&quot;);
+						sSrvr = GetFieldValue(&quot;Server Name&quot;);
+						sEnt = GetFieldValue(&quot;Enterprise Name&quot;);
+						sTime = GetFieldValue(&quot;Task Start Time&quot;);
+						switch (sEnt) {
+						case &quot;EnterpriseName-PROD&quot;:
+							sGtwy = &quot;GTWY-Servername-PROD&quot;;
+							break;
+						case &quot;EnterpriseName-DEV&quot;:
+							sGtwy = &quot;GTWY-Servername-DEV&quot;;
+							break;
+						default:
+						case &quot;EnterpriseName-TEST&quot;:
+							sGtwy = &quot;GTWY-Servername-PROD&quot;;
+							break;
+						}
+						sCmd = &apos;srvrmgr.exe /g &apos; + sGtwy + &apos;:PORT /e &apos; + sEnt + &apos; /s &apos; + sSrvr + &apos; /u USRNAME /p PWD /o &quot;..\\log\\srvrmgr_stop_task_&apos; + GetFieldValue(&quot;Component Name&quot;) + &apos;_&apos; + sTaskIdStop + &apos;.log&quot; /c &quot;stop task &apos; + sTaskIdStop + &apos; for server &apos; + sSrvr + &apos;&quot;&apos;;
+					}
+
+					sTaskID = sTaskID + ((sTaskID != &quot;&quot;) ? &quot;;&quot; : &quot;&quot;) + GetFieldValue(&quot;Task Id&quot;);
+					TheApplication().Trace(GetFieldValue(&quot;Component Name&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Task Start Time&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Task Status&quot;) + &quot;\t&quot; + GetFieldValue(&quot;User Login&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Task Id&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Delete Time&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Enterprise Name&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Server Name&quot;));
+				} while (bcVBCSession.NextRecord());
+			} else {
+				TheApplication().Trace(&quot;Any record found.&quot;);
+				Outputs.SetProperty(&quot;ERROR&quot;, &quot;Any record found.&quot;);
+			}
+		}
+		Outputs.SetProperty(&quot;sTaskID&quot;, sTaskID);
+		Outputs.SetProperty(&quot;nTasks&quot;, nTasks);
+		Outputs.SetProperty(&quot;sTime&quot;, sTime);
+		Outputs.SetProperty(&quot;sSrvr&quot;, sSrvr);
+		Outputs.SetProperty(&quot;sEnt&quot;, sEnt);
+		Outputs.SetProperty(&quot;sGtwy&quot;, sGtwy);
+		Outputs.SetProperty(&quot;sCmd&quot;, sCmd);
+		Outputs.SetProperty(&quot;sTaskIdStop&quot;, sTaskIdStop);
+		Outputs.SetProperty(&quot;stopTask&quot;, stopTask);
+		Outputs.SetProperty(&quot;chkUsrTskMax&quot;, attrTskMax);
+		Outputs.SetProperty(&quot;chkUsrTskCheck&quot;, attrTskCheck);
+		Outputs.SetProperty(&quot;chkUsrTskWait&quot;, attrTskWait);
+
+		TheApplication().Trace(&quot;&quot;);
+		TheApplication().Trace(&quot;&quot;);
+		TheApplication().Trace(&quot;# TASKS: &quot; + nTasks);
+		TheApplication().Trace(&quot;TASK_ID TO STOP: &quot; + sTaskIdStop);
+		if (attrTskCheck == &quot;True&quot; &amp;&amp; stopTask == &quot;stop&quot; &amp;&amp; nTasks &gt; attrTskMax &amp;&amp; sTaskIdStop) {
+			//BS.PF Run External Application
+			//Method.RunProcess
+			//  - Arguments = /g GW-Servername:port /e ENT-Name /s Servername /u User /p Password /o &quot;..\log\srvrmgr_stop_task_116391995.log&quot; /c &quot;stop task 116391995 for server ServerName&quot;
+			//  - Program = srvrmgr.exe
+			//oBS = TheApplication().GetService(&quot;PF Run External Application&quot;);
+			psIn = TheApplication().NewPropertySet();
+			psOut = TheApplication().NewPropertySet();
+			psIn.SetProperty(&quot;Program&quot;, sCmd);
+			psIn.SetProperty(&quot;Arguments&quot;, &quot;&quot;);
+			RunProcess(psIn, psOut); //oBS.InvokeMethod(&quot;RunProcess&quot;, psIn, psOut);
+			Outputs.SetProperty(&quot;ERROR&quot;, &quot;Run External Application: &quot; + psOut.GetProperty(&quot;Error Message&quot;) + &quot;(&quot; + psOut.GetProperty(&quot;Error Code&quot;) + &quot; / &quot; + psOut.GetProperty(&quot;ExitCode&quot;) + &quot;)&quot;);
+
+			//How to kill the Running task properly via scripting? (Doc ID 1076316.1)
+			/*boServerAdmin = TheApplication().GetBusObject(&quot;Server Admin&quot;);
+			bcServerTask = boServerAdmin.GetBusComp(&quot;Server Task&quot;);
+			with (bcServerTask) {
+			ActivateField(&quot;Siebel Server&quot;);
+			ActivateField(&quot;Task&quot;);
+			ActivateField(&quot;Service Component&quot;);
+			ActivateField(&quot;State&quot;);
+			ActivateField(&quot;Start Time&quot;);
+			SetSearchExpr(&quot;[Task] = &apos; &quot; + sTaskIdStop + &quot;&apos;&quot;);
+			ExecuteQuery(ForwardBackward);
+
+			TheApplication().Trace(&quot;SEARCH EXPR: &quot; + &quot;[Task] = &apos; &quot; + sTaskIdStop + &quot;&apos;&quot;);
+
+			if (FirstRecord()) {
+			TheApplication().Trace(&quot;Records found.&quot;);
+			TheApplication().Trace(GetFieldValue(&quot;Siebel Server&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Task&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Service Component&quot;) + &quot;\t&quot; + GetFieldValue(&quot;State&quot;) + &quot;\t&quot; + GetFieldValue(&quot;Start Time&quot;));
+			bcServerTask.InvokeMethod(&quot;StopTask&quot;);
+			bcServerTask.InvokeMethod(&quot;StopTask&quot;);
+			bcServerTask.InvokeMethod(&quot;StopTask&quot;);
+			TheApplication().Trace(&quot;Stop Task: &quot; + GetFieldValue(&quot;Task&quot;));
+			} else {
+			TheApplication().Trace(&quot;Any Task found.&quot;);
+			Outputs.SetProperty(&quot;ERROR&quot;, &quot;Any Task found.&quot;);
+			}
+			}*/
+		}
+	} catch (e) {
+		TheApplication().Trace(&quot;ERROR: &quot; + e.toString());
+	}
+	finally {
+		bcVBCSession = null;
+		boServerAdminSessions = null;
+		bcServerTask = null;
+		boServerAdmin = null;
+		oBS = null;
+		psIn = null;
+		psOut = null;
+		TheApplication().Trace(&quot;STOP&quot;);
+		TheApplication().TraceOff();
+	}
+}
+"
+			   SEQUENCE="1"
+			   UPDATED="04/07/2022 13:41:15"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:16:39"
+			   CREATED_BY="SADMIN">
+			</BUSINESS_SERVICE_SERVER_SCRIPT>
+			<BUSINESS_SERVICE_SERVER_SCRIPT
+			   INACTIVE="N"
+			   NAME="RunProcess"
+			   PROGRAM_LANGUAGE="JS"
+			   SCRIPT="function RunProcess ( Inputs, Outputs )
+{
+	var prg = Inputs.GetProperty(&quot;Program&quot;);
+	var args = Inputs.GetProperty(&quot;Arguments&quot;);
+	var timeout = Inputs.PropertyExists(&quot;Timeout&quot;)?Inputs.GetProperty(&quot;Timeout&quot;):0xFFFFFFFF;
+	var nRC = 0;
+	var errC = -1;
+	var lExitCode = Buffer(4);
+	var sz1 = 0;
+	var sz2 = 0;
+    var buf1;
+	var buf2;
+
+	TheApplication().Trace(&quot;Program: &quot; + prg);
+	TheApplication().Trace(&quot;Arguments: &quot; + args);
+	TheApplication().Trace(&quot;Timeout: &quot; + timeout);
+	TheApplication().Trace(&quot;Creating Process_Information and Startupinfo structures...&quot;);
+	var PROCESS_INFORMATION = new blobDescriptor();
+	var STARTUPINFO = new blobDescriptor();
+
+	/* PROCESS_INFORMATON Structure: */
+	PROCESS_INFORMATION.hProcess = UWORD32;
+	PROCESS_INFORMATION.hThread = UWORD32;
+	PROCESS_INFORMATION.dwProcessId = SWORD32;
+	PROCESS_INFORMATION.dwThreadId = SWORD32;
+
+	sz1 = Blob.size(PROCESS_INFORMATION);
+
+	/* STARTUPINFO Structure: */
+	STARTUPINFO.cb = UWORD32;
+	STARTUPINFO.lpReserved = 1000;
+	STARTUPINFO.lpDesktop = 1000;
+	STARTUPINFO.lpTitle = 1000;
+	STARTUPINFO.dwX = SWORD32;
+	STARTUPINFO.dwY = SWORD32;
+	STARTUPINFO.dwXSize = SWORD32;
+	STARTUPINFO.dwYSize = SWORD32;
+	STARTUPINFO.dwXCountChars = SWORD32;
+	STARTUPINFO.dwYCountChars = SWORD32;
+	STARTUPINFO.dwFillAttribute = SWORD32;
+	STARTUPINFO.dwFlags = SWORD32;
+	STARTUPINFO.wShowWindow = SWORD32;
+	STARTUPINFO.cbReserved2 = SWORD32;
+	STARTUPINFO.lpReserved2 = UWORD8;
+	STARTUPINFO.hStdInput = UWORD32;
+	STARTUPINFO.hStdOutput = UWORD32;
+	STARTUPINFO.hStdError = UWORD32;
+
+	TheApplication().Trace(&quot;Initializing strctures...&quot;);
+	buf1 = new Buffer(Blob.size(PROCESS_INFORMATION));
+	buf2 = new Buffer(Blob.size(STARTUPINFO));
+	buf2.putValue(Blob.size(STARTUPINFO), 4, &quot;unsigned&quot;);
+
+	TheApplication().Trace(&quot;Creating process for program &apos;&quot; + prg + &quot;&apos; with arguments &apos;&quot; + args + &quot;&apos;...&quot;);
+	nRC = (SElib.dynamicLink(&quot;kernel32&quot;, &quot;CreateProcessA&quot;, STDCALL, 0, prg+(args==&quot;&quot;?&quot;&quot;:&quot; &quot;+args), 0, 0, 0, 0x00000000, 0, 0, STARTUPINFO, buf2, PROCESS_INFORMATION, buf1)?0:-1);
+
+	TheApplication().Trace(&quot;CreateProcess returned &quot; + nRC );
+
+	var procId = buf1.getValue(4, &quot;unsigned&quot;);
+	var thrdId = buf1.getValue(4, &quot;unsigned&quot;);
+	var dwProcId = buf1.getValue(4, &quot;unsigned&quot;);
+	var dwThrdId = buf1.getValue(4, &quot;unsigned&quot;);
+
+	if ( nRC == 0) {
+		/*****************************************************************************************
+		 * Process successfully created; now, we wait for some time (or infinitely,if no timeout *
+		 * has been specified) for the process to terminate..								  	 *
+		 *****************************************************************************************/
+		nRC = SElib.dynamicLink(&quot;kernel32&quot;, &quot;WaitForSingleObject&quot;, STDCALL, procId, timeout);
+
+		if ( nRC != 0 ) {
+			Outputs.SetProperty(&quot;Error Code&quot;, nRC);
+			Outputs.SetProperty(&quot;Error Message&quot;, &quot;Process timed out&quot;);
+			Outputs.SetProperty(&quot;ExitCode&quot;, -1);
+			return (CancelOperation);	
+		}
+	}
+
+    if (nRC == 0) {
+		/*****************************************************************************************
+		 * Process terminated; now we retrieve the exitcode of the process						 *
+		 *****************************************************************************************/
+		if (!SElib.dynamicLink(&quot;kernel32&quot;, &quot;GetExitCodeProcess&quot;, STDCALL, procId, lExitCode)) {
+			nRC = -1;
+		}
+	}
+
+	if (nRC != 0) {
+		/*****************************************************************************************
+		 * One of the previous windows api calls failed. we retrieve the error code from the win *
+		 * dows api as a basis for further error diagnosis...								  	 *
+		 *****************************************************************************************/
+		errC = SElib.dynamicLink(&quot;kernel32&quot;, &quot;GetLastError&quot;, STDCALL);
+		Outputs.SetProperty(&quot;Error Code&quot;, errC);
+		Outputs.SetProperty(&quot;Error Message&quot;, &quot;Check MSDN error codes.&quot;);
+		Outputs.SetProperty(&quot;ExitCode&quot;, -1);
+		return (CancelOperation);	
+	}
+
+	Outputs.SetProperty(&quot;Error Code&quot;, 0);
+	Outputs.SetProperty(&quot;Error Message&quot;, &quot;&quot;);
+	Outputs.SetProperty(&quot;ExitCode&quot;, lExitCode.getValue(4,&quot;signed&quot;));
+
+	return (CancelOperation);
+}"
+			   SEQUENCE="2"
+			   UPDATED="04/07/2022 13:23:00"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:21:17"
+			   CREATED_BY="SADMIN">
+			</BUSINESS_SERVICE_SERVER_SCRIPT>
+			<BUSINESS_SERVICE_SERVER_SCRIPT
+			   INACTIVE="N"
+			   NAME="Service_PreInvokeMethod"
+			   PROGRAM_LANGUAGE="JS"
+			   SCRIPT="function Service_PreInvokeMethod (MethodName, Inputs, Outputs)
+{
+
+	if (MethodName == &quot;RunProcess&quot; ) {
+		var rc = 0;
+		TheApplication().TraceOn(&quot;bs_run_external_app.log&quot;, &quot;Allocation&quot;, &quot;All&quot;);
+		TheApplication().Trace(&quot;Executing &apos;RunProcess&apos;&quot;);
+		rc =  RunProcess(Inputs, Outputs);
+		TheApplication().Trace(&quot;Method &apos;RunProcess&apos; done.&quot;);
+		TheApplication().TraceOff();
+		return (rc);
+	}
+	if ( MethodName == &quot;CheckUserSessions&quot; ) {
+		CheckUserSessions(Inputs, Outputs);
+		return(CancelOperation);
+	}
+
+	return (ContinueOperation);
+}"
+			   SEQUENCE="3"
+			   UPDATED="04/07/2022 13:29:21"
+			   UPDATED_BY="SADMIN"
+			   CREATED="04/07/2022 13:16:39"
+			   CREATED_BY="SADMIN">
+			</BUSINESS_SERVICE_SERVER_SCRIPT>
+		</BUSINESS_SERVICE>
+	</PROJECT>
+</REPOSITORY>
+
+
+
