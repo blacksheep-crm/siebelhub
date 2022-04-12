@@ -268,11 +268,11 @@
 			ActivateField(&quot;Task Start Time&quot;);
 			ActivateField(&quot;Server Name&quot;);
 			ActivateField(&quot;Enterprise Name&quot;);
-			SetSearchExpr(&quot;[Component Name] LIKE &apos;SSEObjMgr_*&apos; AND [Delete Time] IS NULL  AND [Task Status] IS NULL AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
+			SetSearchExpr(&quot;[Component Name] LIKE &apos;SCCObjMgr_*&apos; AND [Delete Time] IS NULL  AND [Task Status] IS NULL AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
 			SetSortSpec(&quot;Task Start Time(ASCENDING)&quot;);
 			ExecuteQuery(ForwardBackward);
 
-			TheApplication().Trace(&quot;SEARCH EXPR: &quot; + &quot;[Component Name] LIKE &apos;SSEObjMgr_*&apos; AND [Task Status] = &apos;Running&apos; AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
+			TheApplication().Trace(&quot;SEARCH EXPR: &quot; + &quot;[Component Name] LIKE &apos;SCCObjMgr_*&apos; AND [Task Status] = &apos;Running&apos; AND [User Login] ~ LIKE &apos;&quot; + TheApplication().LoginName() + &quot;&apos;&quot;);
 
 			if (FirstRecord()) {
 				TheApplication().Trace(&quot;Records found.&quot;);
