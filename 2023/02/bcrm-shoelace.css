@@ -1,0 +1,61 @@
+/*blacksheep CRM shoelace demo*/
+
+/*shoelace overrides*/
+.sl-toast-stack {
+    top: unset;
+    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/*custom elements*/
+#bcrm_sl_topnav {
+    width: 100%;
+    height: 40px;
+    display: flex;
+}
+
+#bcrm_sl_title {
+    padding-top: 2px;
+    padding-left: 10px;
+    font-size: 2em;
+    color: #555;
+}
+
+#bcrm_sl_view {
+    width: 100%;
+    overflow: auto;
+}
+
+.bcrmsl-applet {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+}
+
+.bcrmsl-card {
+    min-width: 32vw;
+    margin-bottom: 8px;
+    margin-right: 8px;
+}
+
+.bcrmsl-field {
+    display: flex;
+    font-size: 1.2em;
+}
+
+.bcrmsl-label {
+    width: 200px;
+    color: #555;
+    font-weight: 300;
+}
+
+.bcrmsl-card.selected::part(body) {
+    background: lightblue;
+}
+
+/*hide standard UI*/
+#_sweclient,
+.siebui-button-toolbar {
+    visibility: hidden !important;
+}
