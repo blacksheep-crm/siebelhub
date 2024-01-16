@@ -54,15 +54,14 @@ if (typeof(SiebelAppFacade.ConditionalFormatPR) === "undefined") {
 		let pm = this.GetPM();
 		let rs = pm.Get("GetRawRecordSet");
 		let grid = this.GetGrid();
-		let ph = pm.Get("GetPlaceholder");
-		
+				
 		grid.find("tr.cx-prob-low").removeClass("cx-prob-low");
 		grid.find("tr.cx-prob-mid").removeClass("cx-prob-mid");
 		grid.find("tr.cx-prob-high").removeClass("cx-prob-high");
 		
 		//demo for Opportunity Probability
 		let field = 'Primary Revenue Win Probability';
-		let col = field.replaceAll(" ","_");
+		
 		if (typeof(rs[0][field]) !== "undefined"){
 			for (r in rs){
 				let row = parseInt(r) + 1;
