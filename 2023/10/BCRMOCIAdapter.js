@@ -75,6 +75,22 @@ var ibody = {
     "compartmentId": "{{compartment_ocid}}"
 }
 */
+/* Test payload for GenAI Text Summarization
+{
+    "input": "[{\"Key Contact Last Name\":\"Bensley\",\"Key Contact First Name\":\"Thaddeus\",\"Primary Sales Rep Login\":\"TSMYTHE\",\"Parent Opportunity Name\":\"\",\"Account Location\":\"Minneapolis\",\"Region\":\"\",\"Deal Type\":\"\",\"Personal Street Address\":\"1130 W Warner Rd P O Box 22321  M S 1231-H\",\"Territory\":\"\",\"Organization\":\"PCS Technologies (HT ENU)\",\"Personal Street Address 2\":\"\",\"Channel\":\"\",\"Partner Status\":\"\",\"Personal City\":\"Tempe\",\"Personal Postal Code\":\"23456\",\"Source\":\"\",\"Loans Sum\":\"\",\"Currency Code\":\"USD\",\"Personal State\":\"AZ\",\"Personal Country\":\"USA\",\"Source Type\":\"\",\"Commitment Sum\":\"\",\"Key Contact Home Phone #\":\"\",\"Key Contact Work Phone #\":\"6025553592\",\"Sales Method\":\"Standard Sales Process\",\"Deposits Sum\":\"\",\"Quality\":\"\",\"Referral Source\":\"\",\"Primary Revenue Expected Value\":\"416500\",\"Primary Revenue Close Date\":\"12/07/2007\",\"Primary Revenue Type\":\"\",\"Primary Revenue Upside Amount\":\"0\",\"Primary Revenue Class\":\"\",\"Start Date\":\"\",\"Closure Summary\":\"\",\"Primary Revenue Downside Amount\":\"0\",\"Cost\":\"0\",\"Revenue Currency Code\":\"USD\",\"Revenue Exchange Date\":\"12/07/2007\",\"Committed\":\"N\",\"Primary Revenue Margin Amount\":\"595000\",\"Created\":\"01/07/2007 16:25:12\",\"Created By Name\":\"TSMYTHE\",\"Reason Won Lost\":\"\",\"Assignment Excluded\":\"N\",\"Minimum Contribution Amount\":\"\",\"Exchange Date\":\"12/07/2007\",\"ROI\":\"\",\"Maximum Contribution Amount\":\"\",\"Period\":\"\",\"Strategic\":\"\",\"Hurdle Rate\":\"\",\"Rebate Amount\":\"\",\"Opportunity Close Date\":\"12/07/2007\",\"Check Amount\":\"\",\"Decision Level\":\"\",\"Champion\":\"\",\"Invoice Number\":\"\",\"Check Issue Date\":\"\",\"Deal Horizon\":\"\",\"Specification Exists\":\"\",\"Check Request Date\":\"\",\"Check Number\":\"\",\"Existing Cust\":\"\",\"Payment Type\":\"\",\"Check Sent To\":\"\",\"Copayment Flag\":\"\",\"Name\":\"Honeywell Automation Master SLA Renewal\",\"Account\":\"Honeywell Automation and Control Systems\",\"Primary Revenue Amount\":\"595000\",\"Sales Rep\":\"SADMIN\",\"Partner\":\"\",\"Primary Revenue Win Probability\":\"70\",\"Sales Stage\":\"05 - Building Vision\",\"Description\":\"oap\",\"Secure Flag\":\"N\",\"Id\":\"6SIA-4OL3T\"}]",
+    "compartmentId": "{{compartment_ocid}}",
+    "servingMode": {
+        "servingType": "ON_DEMAND",
+        "modelId": "ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceya3yvtzkwd7y4lq6cl3mb22obgesqh2k4k7t2ruzix55ia"
+    },
+    "extractiveness": "HIGH",
+    "format": "PARAGRAPH",
+    "isEcho": false,
+    "length": "LONG",
+    "temperature": 1,
+    "additionalCommand":"Generate a complete, professional executive report. Be precise and accurate. Provide a list of at least three next action steps based on probability and sales stage without asking."
+}
+*/
 /* Example calls:
 
 BCRMInvokeOCIAI("Language","batchDetectLanguageSentiments","level=SENTENCE",tbody);
@@ -84,20 +100,18 @@ BCRMInvokeOCIAI("Language","batchDetectLanguageEntities","",tbody);
 BCRMInvokeOCIAI("Language","batchDetectLanguagePiiEntities","",tbody);
 BCRMInvokeOCIAI("Language","batchLanguageTranslation","",tbody);
 BCRMInvokeOCIAI("Vision","analyzeDocument","",ibody);
+BCRMInvokeOCIAI("Vision","analyzeImage","",ibody);
+BCRMInvokeOCIAI("GenerativeAI","generateText","",gtbody);
+BCRMInvokeOCIAI("GenerativeAI","summarizeText","",stbody);
 
 genAI, GA in late '23
 https://docs.oracle.com/en-us/iaas/api/#/en/generative-ai/20231130/
 
 https://generativeai.aiservice.us-chicago-1.oci.oraclecloud.com/20231130/actions/generateText
+https://inference.generativeai.us-chicago-1.oci.oraclecloud.com/20231130/actions/summarizeText 
 
 body probably like so:
 
-{
-   "prompts": ["Red Bull Racing Honda, redbull@gmail.com the four-time Formula-1 World Champion team, has chosen Oracle Cloud Infrastructure (OCI) as their infrastructure partner."],
-   "servingMode":{
-       "servingType":"ON_DEMAND"
-   }
-}
 */
 
 var BCRMOCIDEFAULTS = {
@@ -108,6 +122,7 @@ var BCRMOCIDEFAULTS = {
     "Language": "language.aiservice",
     "Vision": "vision.aiservice",
     "DocumentUnderstanding": "document.aiservice",
+    "GenerativeAI":"inference.generativeai",
     "domain": "oci.oraclecloud.com",
     "masking": {
         "EMAIL": {
@@ -119,22 +134,36 @@ var BCRMOCIDEFAULTS = {
     },
     //https://docs.oracle.com/en-us/iaas/api/#/en/language/20221001/datatypes/BatchLanguageTranslationDetails
     "targetLanguageCode": "de",
-    "compartmentId": "ocid1.tenancy.oc1..aaaaaaaaxahtpmtqn2g57uetpf4y6yvt3c3jgg2etnt5swhccr3wn2gyiiua"
+    "compartmentId": "ocid1.tenancy.oc1..aaaaaaaaeu4zdcwqqpulnshbjvgz444yb6iqwr6l4dzr5gl7fcctrayyh6zq",
+    //for document understanding payload
+    "namespace": "frvesixtecrm",
+    "bucket": "output",
+    "prefix": "sbl_du",
+    //demo to retrieve JSON from document understanding output, requires pre-authenticated request on prefix folder
+    "preauthURL": "https://frvesixtecrm.objectstorage.eu-frankfurt-1.oci.customer-oci.com/p/4HsYOkbUzUlVP7ISI3mYQcnPPRmE7m2-hff6pIX8FJzvkysoQ6CrUO8rjEiHz6EQ/n/frvesixtecrm/b/output/o/"
 };
 
 BCRMInvokeOCIAI = function (service, action, query = "", payload) {
     var d = BCRMOCIDEFAULTS;
     let v = d.version;
+    let r = d.region;
     if (service == "Vision") {
         v = "20220125";
     }
     if (service == "DocumentUnderstanding") {
         v = "20221109";
     }
+    if (service == "GenerativeAI"){
+        v = "20231130";
+        r = "us-chicago-1";
+    }
     //https://language.aiservice.eu-frankfurt-1.oci.oraclecloud.com/20210101/actions/batchDetectLanguageSentiments
-    var url = "https://" + d[service] + "." + d.region + "." + d.domain + "/" + v + "/actions/" + action + "?" + query;
+    var url = "https://" + d[service] + "." + r + "." + d.domain + "/" + v + "/actions/" + action + "?" + query;
     if (service == "DocumentUnderstanding") {
-        url = "https://" + d[service] + "." + d.region + "." + d.domain + "/" + v + "/" + action;
+        url = "https://" + d[service] + "." + r + "." + d.domain + "/" + v + "/" + action;
+    }
+    if (service == "GenerativeAI") {
+        url = "https://" + d[service] + "." + r + "." + d.domain + "/" + v + "/actions/" + action;
     }
     if (action == "batchDetectLanguagePiiEntities") {
         payload.masking = d.masking;
@@ -217,7 +246,8 @@ BCRMOCIRequest = function (data, tbody, url, action) {
 BCRMOCICONFIG = {
     "Action": ["Comment", "Description"],
     "Service Request": ["Abstract"],
-    "Action Attachment": ["ActivityFileName"]
+    "Action Attachment": ["ActivityFileName"],
+    "Opportunity":["Name"]
 }
 
 BCRMProcessOCIData = function (data, action) {
@@ -227,6 +257,19 @@ BCRMProcessOCIData = function (data, action) {
     let fi = pm.Get("GetFullId");
     let ae = $("#" + fi);
     let ph = pm.Get("GetPlaceholder");
+    if (action == "analyzeImage") {
+        let labels = data.labels;
+        let text = "";
+        for (let i = 0; i < labels.length; i++){
+            text += labels[i].name;
+            text += " (" + labels[i].confidence + ")";
+            text += "<hr>";
+        }
+        let d = $("<div>");
+        d.html(text);
+        $("#maskoverlay").hide();
+        d.dialog();
+    }
     if (action == "analyzeDocument") {
         let pages = data.pages;
         let pagecount = pages.length;
@@ -241,16 +284,36 @@ BCRMProcessOCIData = function (data, action) {
         }
         let d = $("<div>");
         d.html(text);
+        $("#maskoverlay").hide();
         d.dialog();
     }
     if (action == "processorJobs") {
         //doc understanding complete
-        //TODO: retrieve JSON objects
-        //DEMO: open pre-auth url for JSON
+        //DEMO: open pre-auth url for default JSON output
         let pid = data.id;
-        let url = "https://frvesixtecrm.objectstorage.eu-frankfurt-1.oci.customer-oci.com/p/8jrmAjk15AoL5bJN63nCkWqGe-QKNH3B56n5etXyA1ZFYM1YxhY4MnClRPF8NQVb/n/frvesixtecrm/b/output/o/";
-        url += "sbl_du/" + pid + "/_/results/defaultObject.json";
-        window.open(url, '_blank');
+        let url = BCRMOCIDEFAULTS.preauthURL;
+        url += BCRMOCIDEFAULTS.prefix + "/" + pid + "/_/results/defaultObject.json";
+        fetch(url, { method: 'GET', redirect: 'follow' })
+            .then(response => response.text())
+            .then(result => {
+                let data = JSON.parse(result);
+                let pages = data.pages;
+                let pagecount = pages.length;
+                let doctype = data.detectedDocumentTypes[0]["documentType"];
+                let lines = pages[0].lines;
+                let text = "";
+                text += "Document Type: " + doctype + "<hr>";
+                text += "Pages: " + pagecount + "<br>";
+                text += "Start of document: " + "<hr>";
+                for (let i = 0; i < 5; i++) {
+                    text += lines[i].text + "<br>";
+                }
+                let d = $("<div>");
+                d.html(text);
+                $("#maskoverlay").hide();
+                d.dialog();
+            })
+            .catch(error => console.log('error', error));
     }
     if (action == "batchDetectLanguageSentiments") {
         let h = ae.find("tr#1").height();
@@ -279,9 +342,24 @@ BCRMProcessOCIData = function (data, action) {
             //row.find("td#" + tdid).prepend(icon);
             cont.append(icon);
         }
+        $("#maskoverlay").hide();
         ae.find(".ui-jqgrid-bdiv").before(cont);
     }
-}
+    if (action == "summarizeText"){
+        $("#maskoverlay").hide();
+        let summary = data.summary;
+        //summary.replaceAll(".",".\n");
+        let dlg = $("<div id='bcrm_summary'><span style='font-family:system-ui;font-size:1.2em;white-space: break-spaces;'></span></div>");
+        dlg.find("span").text(summary);
+        if (summary.indexOf)
+        dlg.dialog({
+            width: 800,
+            height: 600,
+            title: "Summary generated by AI"
+        });
+    }
+};
+
 BCRMOCIAddButton = function (pm) {
     const conf = BCRMOCICONFIG;
     let fi = pm.Get("GetFullId");
@@ -302,6 +380,7 @@ BCRMOCIAddButton = function (pm) {
                 if (btns.length == 1 && ae.find("#" + btnid).length == 0) {
                     let btn = $("<button style='font-size: 1.3em;cursor:pointer;' title='AInhance Me' id='" + btnid + "'>👽</button>");
                     btn.on("click", function () {
+                        $("#maskoverlay").show();
                         ae.find("[id^='bcrm_icons']").remove();
                         rs = pm.Get("GetRawRecordSet");
                         if (bc.indexOf("Attachment") > -1) {
@@ -311,17 +390,36 @@ BCRMOCIAddButton = function (pm) {
                             let par_bc = pbc.GetName();
                             let par_row_id = pbc.GetIdValue();
                             let row_id = ar["Id"];
+                            let filetype = ar["ActivityFileExt"];
                             BCRMGetAttachmentBase64(bo, par_bc, par_row_id, bc, row_id);
                             setTimeout(function () {
+                                /*
                                 let ibody = BCRMOCIPrepareVisionPayload();
                                 BCRMInvokeOCIAI("Vision", "analyzeDocument", "", ibody);
-                                /*
-                                let ibody = BCRMOCIPrepareDocumentUnderstandingPayload();
-                                BCRMInvokeOCIAI("DocumentUnderstanding","processorJobs","",ibody);
-                                //Doc understanding results are put in a bucket, download can be done through API or
-                                //bucket pre-auth request,e.g. https://frvesixtecrm.objectstorage.eu-frankfurt-1.oci.customer-oci.com/p/8jrmAjk15AoL5bJN63nCkWqGe-QKNH3B56n5etXyA1ZFYM1YxhY4MnClRPF8NQVb/n/frvesixtecrm/b/output/o/
-                                 */
+                                */
+                                if (filetype == "pdf") {
+                                    let ibody = BCRMOCIPrepareDocumentUnderstandingPayload();
+                                    BCRMInvokeOCIAI("DocumentUnderstanding", "processorJobs", "", ibody);
+                                    //Doc understanding results are put in a bucket, download can be done through API or
+                                    //bucket pre-auth request,e.g. https://frvesixtecrm.objectstorage.eu-frankfurt-1.oci.customer-oci.com/p/8jrmAjk15AoL5bJN63nCkWqGe-QKNH3B56n5etXyA1ZFYM1YxhY4MnClRPF8NQVb/n/frvesixtecrm/b/output/o/
+                                }
+                                if (filetype == "png"){
+                                    let ibody = BCRMOCIPrepareVisionImagePayload();
+                                    BCRMInvokeOCIAI("Vision", "analyzeImage", "", ibody);
+                                }
                             }, 2000);
+                        }
+                        if (bc == "Opportunity"){
+                            let theoppty = rs[pm.Get("GetSelection")];
+                            let desc = theoppty["Description"];
+                            if (desc.indexOf("ai:") == 0){
+                                desc = desc.substr(3,desc.length);
+                            }
+                            else{
+                                desc = undefined;
+                            }
+                            let tsbody = BCRMOCIPrepareGenAITextSummarizationPayload(JSON.stringify(theoppty),desc);
+                            BCRMInvokeOCIAI("GenerativeAI","summarizeText","",tsbody);
                         }
                         else {
                             let tbody = BCRMOCIPrepareLangPayload(rs, fieldlist[0]);
@@ -356,6 +454,50 @@ BCRMOCIPrepareVisionPayload = function () {
     return ibody;
 }
 
+BCRMOCIPrepareVisionImagePayload = function () {
+    var ibody = {
+        "features": [
+            {
+                "featureType": "IMAGE_CLASSIFICATION"
+            },
+            {
+                "featureType": "OBJECT_DETECTION"
+            },
+            {
+                "featureType": "TEXT_DETECTION"
+            },
+        ],
+        "image": {
+            "source": "INLINE",
+            "data": BCRM64
+        }
+    };
+    return ibody;
+}
+
+BCRMOCIPrepareGenAITextSummarizationPayload = function(input, command){
+    if (typeof(command) === "undefined"){
+        command = "Generate a complete, professional executive report. Be precise and accurate. Start with a summary and then provide a numbered list of at least three next action steps based on the data without asking.";
+        //"Use language in the style of percy bysshe shelley and include at least ten emojis"
+        //"Write an excruciatingly long-winded poem in the style of percy bysshe shelley and include at least ten emojis"
+    }
+    var tsbody = {
+            "input": input,
+            "compartmentId": BCRMOCIDEFAULTS.compartmentId,
+            "servingMode": {
+                "servingType": "ON_DEMAND",
+                "modelId": "ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceya3yvtzkwd7y4lq6cl3mb22obgesqh2k4k7t2ruzix55ia"
+            },
+            "extractiveness": "AUTO",
+            "format": "AUTO",
+            "isEcho": true,
+            "length": "LONG",
+            "temperature": 1,
+            "additionalCommand": command
+    };
+    return tsbody;
+};
+
 BCRMOCIPrepareDocumentUnderstandingPayload = function () {
     var ibody = {
         "processorConfig": {
@@ -363,7 +505,13 @@ BCRMOCIPrepareDocumentUnderstandingPayload = function () {
             "features": [
                 {
                     "featureType": "TEXT_EXTRACTION",
-                    "generateSearchablePdf": true
+                    "generateSearchablePdf": false
+                },
+                {
+                    "featureType": "DOCUMENT_CLASSIFICATION"
+                },
+                {
+                    "featureType": "TABLE_EXTRACTION"
                 }
             ]
         },
@@ -372,9 +520,9 @@ BCRMOCIPrepareDocumentUnderstandingPayload = function () {
             "data": BCRM64
         },
         "outputLocation": {
-            "bucketName": "output",
-            "namespaceName": "frvesixtecrm",
-            "prefix": "sbl_du"
+            "bucketName": BCRMOCIDEFAULTS.bucket,
+            "namespaceName": BCRMOCIDEFAULTS.namespace,
+            "prefix": BCRMOCIDEFAULTS.prefix
         },
         "compartmentId": BCRMOCIDEFAULTS.compartmentId
     };
@@ -389,7 +537,7 @@ BCRMOCIPrepareLangPayload = function (rs, fieldname) {
     for (let i = 0; i < rs.length; i++) {
         let item = {};
         item.key = rs[i]["Id"] + "_" + fieldname;
-        item.text = rs[i][fieldname];
+        item.text = rs[i][fieldname] != "" ? rs[i][fieldname] : "#";  //avoid empty text
         item.languageCode = "en"; //TODO: support multi-lang
         tbody.documents.push(item);
     }
